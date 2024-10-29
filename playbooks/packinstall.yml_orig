@@ -1,0 +1,28 @@
+---
+- name: Installing and Running Ngnix
+  hosts: localhost
+
+
+  tasks:
+  - name: Install Nginx
+    yum:
+     name: nginx
+     state: present
+
+
+  - name: Start Wildfly
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: Configure default page
+    copy:
+      dest: /usr/share/nginx
+      content: |
+        <html><head><title>Welcome rootman</title></head>
+        <body><h1>Hello from Nginx Rootman</h1></body>
+        </html>
+
+  - name: Verify Nginx is running
+    command: curl http://localhost

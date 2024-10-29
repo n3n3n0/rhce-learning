@@ -1,0 +1,15 @@
+---
+- hosts: romantic02
+  become: yes
+  tasks:
+    - name: create ext4 filesystem on a logical volume
+      filesystem:
+        fstype: ext4
+        dev: /dev/vg_ansible/lv_ansible
+    - name: mount filesystem
+      mount:
+        path: /mnt/test_mount
+        src: /dev/vg_ansible/lv_ansible
+        fstype: ext4
+        state: mounted
+        backup: yes

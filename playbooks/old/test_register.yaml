@@ -1,0 +1,12 @@
+---
+- hosts: romantic02
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/romanticAnsiblePlayFile
+        state: touch
+      register: testvar
+    - name: display debug msg
+      debug: msg="Register output is {{ testvar }}"
+
+

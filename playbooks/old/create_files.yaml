@@ -1,0 +1,16 @@
+---
+- hosts: romantic02
+  tasks:
+    - name: touch a new file
+      file:
+        path: /tmp/testFile1
+        state: touch
+    - name: add line with copy
+      copy:
+        content: added by copy module
+        dest: /tmp/testFile2
+    - name:
+      lineinfile:
+        path: /tmp/testFile3
+        line: added by lineinfile module
+        create: yes

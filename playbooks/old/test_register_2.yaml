@@ -1,0 +1,16 @@
+---
+- hosts: romantic02
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/romanticAnsiblePlayFile2
+        state: touch
+      register: testvar
+    - name: display debug msg
+      debug: msg=" Register output is {{ testvar }} "
+    - name: edit file
+      lineinfile:
+        path: /tmp/romanticAnsiblePlayFile2
+        line: "The uid is {{ testvar.uid }} and gid is {{ testvar.gid }}" 
+
+

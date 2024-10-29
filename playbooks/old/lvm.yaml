@@ -1,0 +1,15 @@
+---
+- hosts: romantic02
+  become: yes
+  tasks:
+    - name: create volume group
+      lvg:
+        pvs: /dev/sdb1,/dev/sdc1
+        vg: vg_ansible
+        state: present
+    - name: create logical volume
+      lvol:
+        vg: vg_ansible
+        lv: lv_ansible
+        size: 512m
+        state: present 

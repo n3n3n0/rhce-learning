@@ -1,0 +1,48 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: latest
+    - name:
+      user:
+        name: "{{ item }}"
+        groups: apache
+      loop:
+        - rootman
+        - itachi
+    - name: create index.html
+      copy:
+        src: /home/r00tm4n/index.html
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: 0644
+    - name: start and enable http
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+- hosts: labservers
+  become: yes
+  tasks:
+    - name: install postgresql
+      yum:
+        name: postgresql-server
+        state: latest
+    - name:
+      command: /usr/bin/postgresql-setup --initdb
+    - name: create users
+      user:
+        name: "{{ item }}"
+        groups: postgres
+      loop:
+        - rootmandb
+        - nenenodb
+    - name: start and enable postgres
+      service:
+        name: postgresql
+        state: started
+        enabled: yes 

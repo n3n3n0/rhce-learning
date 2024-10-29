@@ -1,0 +1,9 @@
+---
+- hosts: romantic02
+  become: yes
+  tasks:
+    - name: remove epel repo
+      yum_repository:
+        name: epel
+        file: epel
+        state: absent
