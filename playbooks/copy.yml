@@ -1,0 +1,13 @@
+---
+- name: Copy Files to Remote Clients
+  hosts: labservers
+
+  tasks:
+  - name: Copy the file
+    become: yes
+    copy:
+      src: /tmp/filetocopy.cfg
+      dest: /var/tmp
+      owner: ansible
+      group: ansible
+      mode: 0644
