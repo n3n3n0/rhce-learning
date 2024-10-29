@@ -1,0 +1,29 @@
+---
+- name: Create and Remove File
+  hosts: all
+  
+  tasks:
+  - name: Create a directory
+    file:
+      path: /tmp/tesdir
+      owner: ansible
+      group: ansible
+      mode: 770
+      state: directory
+  - name: Create a file in Directory
+    become: yes
+    file:
+      path: /tmp/testdir/testfile
+      state: touch
+  - name: Stat the new file jerry
+    stat:
+      path: /tmp/testdir/testfile
+      register: jf
+  - name: Show the status of the file
+    debug:
+      msg: File status and attributes {{ jf }}
+  - name: Remove the file
+    file:
+      path: /tmp/testdir/testfile
+      state: absent
+
