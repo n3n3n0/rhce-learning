@@ -1,0 +1,14 @@
+---
+- name: Check File Status
+  hosts: localhost
+
+
+  tasks:
+  - name: Check file status and attributes
+    stat:
+      path: /etc/fstab
+    register: fs
+
+  - name: Show result
+    debug:
+      msg: File attributes {{ fs }}
