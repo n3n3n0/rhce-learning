@@ -1,0 +1,9 @@
+---
+- name: Change file permissions
+  hosts: all
+
+  tasks:
+  - name: File permissions
+    file:
+      path: /home/ansible/tobechanged
+      mode: a+w
