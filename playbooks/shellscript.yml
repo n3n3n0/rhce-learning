@@ -1,0 +1,7 @@
+---
+- name: Playbook for shell script
+  hosts: romantic02
+  become: yes
+  tasks:
+  - name: Fun shell script
+    shell: "/home/ansible/check_nginx_status.sh"
