@@ -1,0 +1,14 @@
+---
+- name: Create a file add text
+  hosts: all
+
+  tasks:
+  - name: create a new file
+    file:
+      path: /tmp/esitoe
+      state: touch
+
+  - name: Add text to the file
+    blockinfile:
+      path: /tmp/esitoe
+      block: O Ernesto é poderoso. A vida é bela
