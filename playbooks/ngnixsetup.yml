@@ -1,0 +1,47 @@
+---
+- name: Setup nginx and open firewall port
+  hosts: romantic02
+  become: yes
+  tasks:
+  - name:  Install nginx
+    yum:
+      name: nginx
+      state: present
+  
+  - name: Replace listen 80 with 8080 in Nginx config
+    replace:
+      path: /etc/nginx/nginx.conf  
+      regexp: 'listen\s+80;'
+      replace: 'listen 8080;'
+
+  - name: Replace [::]:80 with [::]:8080 in Nginx config
+    replace:
+      path: /etc/nginx/nginx.conf  
+      regexp: 'listen\s+\[::\]:80;'
+      replace: 'listen [::]:8080;'
+
+  - name: Test Nginx configuration for syntax errors
+    command: nginx -t
+    register: nginx_test
+    ignore_errors: true
+  
+  - name: Display Nginx config test output
+    debug:
+      var: nginx_test.stdout
+
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started
+
+  - name: Open port 8080 for access to nginx
+    firewalld:
+      port: 8080/tcp
+      permanent: true
+      state: enabled
+  
+  - name: Reload the firewalld to apply the changes
+    service:
+      name: firewalld
+      state: reloaded
+
