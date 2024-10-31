@@ -1,0 +1,31 @@
+---
+- name: Create and mount a new storage
+  hosts: romantic02
+  become: yes
+  tasks:
+    - name: Create a new partition starting after sdb1
+      parted:
+        device: /dev/sdb
+        number: 2
+        state: present
+        part_start: 2.1GiB
+        part_end: 2.9GiB  
+        label: gpt
+    
+    - name: Create xfs filesystem
+      filesystem:
+        dev: /dev/sdb2
+        fstype: xfs
+
+    - name: Create mount directory
+      file:
+        path: /data
+        state: directory
+
+    - name: Mount the filesystem
+      mount:
+        path: /data
+        src: /dev/sdb2
+        fstype: xfs
+        state: mounted
+
