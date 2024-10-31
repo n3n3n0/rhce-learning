@@ -1,0 +1,10 @@
+---
+- name: Playbook for creating users
+  hosts: all
+
+  tasks:
+  - name: Create Users
+    user:
+      name: neneno
+      home: /home/neneno
+      shell: /bin/bash
