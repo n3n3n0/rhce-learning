@@ -1,0 +1,1 @@
+ansible-playbook pick_and_choose_step.yml --start-at-task 'Install telnet'
