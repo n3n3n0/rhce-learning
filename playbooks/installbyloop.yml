@@ -1,0 +1,12 @@
+---
+- name: Install packages using a loop
+  hosts: romantic02
+  become: yes
+  vars:
+    packages: [at,nmap]
+
+  tasks:
+    - name: Install packages
+      yum:
+        name: '{{packages}}'
+        state: present

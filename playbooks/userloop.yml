@@ -1,0 +1,15 @@
+---
+- name: Create users using a loop Method 1
+  hosts: romantic02
+  become: yes
+
+
+
+  tasks:
+    - name: create users
+      user:
+        name: "{{ item }}"
+      loop:
+        - samora
+        - mondlane
+        - dhlakama

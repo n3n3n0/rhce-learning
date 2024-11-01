@@ -1,0 +1,12 @@
+---
+- name: Create users using a loop Method 1
+  hosts: romantic02
+  become: yes
+  vars: 
+    users: [julius,gongane,sitoe]
+  
+  tasks:
+    - name: create users
+      user:
+        name: '{{ item }}'
+      with_items: '{{ users }}'
