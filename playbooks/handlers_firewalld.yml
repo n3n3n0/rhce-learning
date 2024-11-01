@@ -1,0 +1,25 @@
+---
+- name: Enable service on firewalld
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Open port for http
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+      notify:
+        - Reload firewalld
+
+    - name: Ensure firewalld is running
+      service:
+        name: firewalld
+        state: started
+
+
+  handlers:
+    - name: Reload firewalld
+      service:
+        name: firewalld
+        state: reloaded
