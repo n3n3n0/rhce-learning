@@ -1,0 +1,5 @@
+---
+- name: Install Chrony
+  yum:
+    name: named
+    stated: present

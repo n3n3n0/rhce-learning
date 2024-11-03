@@ -1,0 +1,5 @@
+---
+- name: Install time package
+  yum:
+    name: ntp or chrony
+    stated: latest

@@ -1,0 +1,8 @@
+---
+- name: Install packages
+  become: yes
+  hosts: romantic02
+  roles:
+    - roles/chrony
+    - roles/named
+
